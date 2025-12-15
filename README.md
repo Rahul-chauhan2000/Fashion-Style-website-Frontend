@@ -75,7 +75,7 @@ Download All Resources from here: https://drive.google.com/drive/folders/1GZb2v7
 Clone the project
 
 ```bash
-  git clone [https://github.com/Priyanshu9898/Rapid-crew](https://github.com/Rahul-chauhan2000/Fashion-Style-website-Frontend.git)
+  git clone https://github.com/Rahul-chauhan2000/Fashion-Style-website-Frontend.git
 ```
 
 Go to the project directory
