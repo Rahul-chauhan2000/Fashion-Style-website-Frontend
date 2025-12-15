@@ -1,88 +1,70 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// components
 import PosterCarousal from "./Carousals/PosterCarousal";
 import Header from "./Header";
 import CompanyMoto from "./CompanyMoto";
 import MainCard from "./MainCard";
 import ProductCard from "../Product/ProductCard";
 
-// styling
 import { Box, Grid } from "@material-ui/core";
 import Row from "react-bootstrap/Row";
 
 const Home = () => {
-  // states
-  const [data, setData] = useState([]);   // ✅ always array
-  const [loading, setLoading] = useState(false);
-  const [count] = useState(6);
-
-  const loadPost = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("/bestsellers");
-
-      // ✅ SAFETY: ensure array only
-      if (Array.isArray(response.data)) {
-        setData(response.data);
-      } else if (Array.isArray(response.data?.products)) {
-        setData(response.data.products);
-      } else {
-        setData([]);
-      }
-    } catch (error) {
-      console.error("API ERROR:", error);
-      setData([]);
-    }
-    setLoading(false);
-  };
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const loadPost = async () => {
+      try {
+        const res = await axios.get("/bestsellers");
+
+        // 🔐 HARD VALIDATION
+        if (Array.isArray(res.data)) {
+          setData(res.data);
+        } else if (Array.isArray(res.data?.products)) {
+          setData(res.data.products);
+        } else {
+          console.error("INVALID API RESPONSE:", res.data);
+          setData([]);
+        }
+      } catch (err) {
+        console.error("API FAILED:", err);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadPost();
   }, []);
 
+  // 🔐 SECOND HARD GUARD (MOST IMPORTANT)
+  if (!Array.isArray(data)) {
+    return <h3 style={{ textAlign: "center" }}>No products available</h3>;
+  }
+
   return (
     <>
-      {/* Poster */}
       <PosterCarousal />
-
-      {/* Header */}
       <Header header="COLLECTIONS" />
 
-      {/* Collection Images */}
-      <Grid container style={{ marginTop: "10px", marginBottom: "15px" }}>
-        <MainCard
-          url="./images/Collection/NewArrival.jpg"
-          alt="New Arrival Collection"
-          link="/"
-        />
-        <MainCard
-          url="./images/Collection/bestseller.jpg"
-          alt="BestSeller Collection"
-          link="/bestseller"
-        />
-        <MainCard
-          url="./images/Collection/NewArrivals_solids.jpg"
-          alt="Basic Collection"
-          link="/"
-        />
+      <Grid container style={{ marginTop: 10, marginBottom: 15 }}>
+        <MainCard url="./images/Collection/NewArrival.jpg" alt="New Arrival" link="/" />
+        <MainCard url="./images/Collection/bestseller.jpg" alt="BestSeller" link="/bestseller" />
+        <MainCard url="./images/Collection/NewArrivals_solids.jpg" alt="Basic" link="/" />
       </Grid>
 
-      {/* Header 2 */}
       <Header header="Recommendation For You" />
 
-      {/* Products */}
-      <Box
-        className="container"
-        style={{ marginTop: "40px", marginBottom: "30px" }}
-      >
+      <Box className="container" style={{ marginTop: 40, marginBottom: 30 }}>
         <Row xs={1} md={2} className="g-4">
           {loading ? (
             <h4>Loading...</h4>
+          ) : data.length === 0 ? (
+            <h4>No products found</h4>
           ) : (
-            Array.isArray(data) &&
-            data.slice(10, count + 10).map((item) => (
+            data.slice(10, 16).map((item) => (
               <ProductCard
                 key={item.product_id}
                 id={item.product_id}
@@ -98,7 +80,6 @@ const Home = () => {
         </Row>
       </Box>
 
-      {/* Company Moto */}
       <CompanyMoto />
     </>
   );
