@@ -81,7 +81,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd Rapid-crew
+  cd Frontend
 ```
 
 Go to requirements.txt file in the same folder and install all required dependencies.
@@ -135,7 +135,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 Open new terminal and run
 
 ```bash
-  cd Rapid-crew/backend
+  cd backend
 ```
 
 Create Virtual Environment in Python
