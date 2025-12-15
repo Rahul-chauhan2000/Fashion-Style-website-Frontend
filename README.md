@@ -100,19 +100,19 @@ Go to requirements.txt file in the same folder and install all required dependen
 
 To run this project, you will need to add the following environment variables to your firebase.js file
 
-`API_KEY`: "AIzaSyDapzyVgu5Nv4i3s7TIw5fKFIeLS4YDB9g",
-
-`authDomain` : "rapid-crew-1947c.firebaseapp.com",
-
-`projectId`: "rapid-crew-1947c",
-
-`storageBucket`: "rapid-crew-1947c.appspot.com",
-
-`messagingSenderId`: "674640692953",
-
-`appId`: "1:674640692953:web:c8e98832e1fa86a3ffa0c8",
-
-`measurementId`: "G-QX9814DMG9",
+  apiKey: "AIzaSyDUqmlf9KuXylMiCZNd1W2Nm0xXExay2ZU",
+  
+  authDomain: "online-fashion-style-web-9ce11.firebaseapp.com",
+  
+  projectId: "online-fashion-style-web-9ce11",
+  
+  storageBucket: "online-fashion-style-web-9ce11.firebasestorage.app",
+  
+  messagingSenderId: "430012866708",
+  
+  appId: "1:430012866708:web:a16f14b8ad8d14bbb5d481",
+  
+  measurementId: "G-2YK5GSPD8S"
 
 
 
